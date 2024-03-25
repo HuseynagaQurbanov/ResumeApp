@@ -8,7 +8,7 @@ import java.util.List;
 public class Main {
 
     public static void main(String[] args) throws Exception {
-        UserDaoInter userDao = new UserDaoImpl();
+        UserDaoInter userDao = Context.instanceUserDao();
         
         User u = userDao.getById(2);
         u.setName("Musa");
