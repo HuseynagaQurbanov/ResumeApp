@@ -10,9 +10,7 @@ public class Main {
     public static void main(String[] args) throws Exception {
         UserDaoInter userDao = Context.instanceUserDao();
         
-        User u = userDao.getById(2);
-        u.setName("Musa");
-        userDao.updateUser(u);
+        userDao.removeUser(6);
         System.out.println(userDao.getAll());
         
     }

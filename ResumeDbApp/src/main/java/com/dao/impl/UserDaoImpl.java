@@ -14,6 +14,22 @@ import java.util.List;
 public class UserDaoImpl extends AbstractDao implements UserDaoInter {
 
     @Override
+    public boolean addUser(User u){
+        try (Connection c = connect()) {
+            PreparedStatement pstmt = c.prepareStatement("insert into user(name,surname,email,phone) values(?,?,?,?)");
+            pstmt.setString(1, u.getName());
+            pstmt.setString(2, u.getSurname());
+            pstmt.setString(3, u.getEmail());
+            pstmt.setString(4, u.getPhone());
+
+            return pstmt.execute();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            return false;
+        }
+    }
+    
+    @Override
     public List<User> getAll() {
         List<User> res = new ArrayList<>();
 

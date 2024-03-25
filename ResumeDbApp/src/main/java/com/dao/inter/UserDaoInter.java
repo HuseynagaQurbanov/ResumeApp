@@ -4,6 +4,8 @@ import com.bean.User;
 import java.util.List;
 
 public interface UserDaoInter {
+    public boolean addUser(User u);
+    
     public List<User> getAll();
     
     public User getById(int id);
