@@ -1,6 +1,7 @@
 package com.bean;
 
 import java.sql.Date;
+import java.util.List;
 import lombok.Data;
 
 @Data
@@ -15,8 +16,13 @@ public class User {
     private Date birthDate;
     private Country nationality;
     private Country birthPlace;
+    private List<UserSkill> skills;
 
     public User() {
+    }
+    
+    public User(int id) {
+        this.id = id;
     }
 
     public User(int id, String name, String surname, String email, String phone, String profileDesc, String address, Date birthDate, Country nationality, Country birthPlace) {

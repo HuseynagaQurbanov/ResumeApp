@@ -1,7 +1,9 @@
 package com.dao.impl;
 
 import com.bean.Country;
+import com.bean.Skill;
 import com.bean.User;
+import com.bean.UserSkill;
 import com.dao.inter.AbstractDao;
 import com.dao.inter.UserDaoInter;
 import java.sql.Connection;
@@ -35,6 +37,15 @@ public class UserDaoImpl extends AbstractDao implements UserDaoInter {
         return new User(id, name, surname, email, phone, profileDesc, address, birthdate, nationality, birthPlace);
     }
 
+    private UserSkill getUserSkill(ResultSet rs) throws Exception{
+        int userId = rs.getInt("id");
+        int skillId = rs.getInt("skill_id");
+        String skillName = rs.getString("skill_name");
+        int power = rs.getInt("power");
+        
+        return new UserSkill(null, new User(userId), new Skill(skillId, skillName), power);
+    }
+    
     @Override
     public List<User> getAll() {
         List<User> res = new ArrayList<>();
@@ -132,6 +143,36 @@ public class UserDaoImpl extends AbstractDao implements UserDaoInter {
             ex.printStackTrace();
             return false;
         }
+    }
+
+    @Override
+    public List<UserSkill> getAllSkillByUserId(int userId) {
+        List<UserSkill> res = new ArrayList<>();
+
+        try (Connection c = connect()) {
+            PreparedStatement stmt = c.prepareStatement("select "
+                    + "u.*, "
+                    + "us.skill_id, "
+                    + "s.name as skill_name, "
+                    + "us.power "
+                    + "from"
+                    + "user_skill us "
+                    + "left join user u on us.user_id = u.id "
+                    + "left join skill s on us.skill_id = s.id "
+                    + "where us.user_id = ?");
+            stmt.setInt(1, userId);
+            stmt.execute();
+            ResultSet rs = stmt.getResultSet();
+
+            while (rs.next()) {
+                UserSkill u = getUserSkill(rs);
+
+                res.add(u);
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        return res;
     }
 
 }
