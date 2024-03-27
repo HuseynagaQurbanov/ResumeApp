@@ -1,12 +1,12 @@
 package com.main;
 
-import com.dao.inter.CountryDaoInter;
+import com.dao.inter.SkillDaoInter;
 
 public class Main {
 
     public static void main(String[] args) throws Exception {
-        CountryDaoInter userDao = Context.instanceCountryDao();
+        SkillDaoInter userDao = Context.instanceSkillDao();
 
-        System.out.println(userDao.getAllCountry());
+        System.out.println(userDao.getAllSkill());
     }
 }
