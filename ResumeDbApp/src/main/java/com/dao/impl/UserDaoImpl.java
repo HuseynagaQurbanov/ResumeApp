@@ -1,9 +1,9 @@
 package com.dao.impl;
 
-import com.bean.Country;
-import com.bean.Skill;
-import com.bean.User;
-import com.bean.UserSkill;
+import com.entity.Country;
+import com.entity.Skill;
+import com.entity.User;
+import com.entity.UserSkill;
 import com.dao.inter.AbstractDao;
 import com.dao.inter.UserDaoInter;
 import java.sql.Connection;
@@ -155,7 +155,7 @@ public class UserDaoImpl extends AbstractDao implements UserDaoInter {
                     + "us.skill_id, "
                     + "s.name as skill_name, "
                     + "us.power "
-                    + "from"
+                    + "from "
                     + "user_skill us "
                     + "left join user u on us.user_id = u.id "
                     + "left join skill s on us.skill_id = s.id "

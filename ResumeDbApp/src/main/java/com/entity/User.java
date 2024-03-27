@@ -1,4 +1,4 @@
-package com.bean;
+package com.entity;
 
 import java.sql.Date;
 import java.util.List;

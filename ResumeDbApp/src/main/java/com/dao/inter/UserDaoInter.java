@@ -1,7 +1,7 @@
 package com.dao.inter;
 
-import com.bean.User;
-import com.bean.UserSkill;
+import com.entity.User;
+import com.entity.UserSkill;
 import java.util.List;
 
 public interface UserDaoInter {
