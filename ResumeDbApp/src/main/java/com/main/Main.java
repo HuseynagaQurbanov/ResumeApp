@@ -1,12 +1,12 @@
 package com.main;
 
-import com.dao.inter.EmploymentHistoryDaoInter;
+import com.dao.inter.CountryDaoInter;
 
 public class Main {
 
     public static void main(String[] args) throws Exception {
-        EmploymentHistoryDaoInter userDao = Context.EmploymentHistoryDao();
+        CountryDaoInter userDao = Context.instanceCountryDao();
 
-        System.out.println(userDao.getAllEmploymentHistoryByUserId(1));
+        System.out.println(userDao.getAllCountry());
     }
 }
