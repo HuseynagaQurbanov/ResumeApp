@@ -1,36 +1,56 @@
 package main;
 
+import com.dao.inter.CountryDaoInter;
 import com.dao.inter.UserDaoInter;
+import com.entity.Country;
 import com.entity.User;
 import com.main.Context;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
+import java.util.List;
 import lombok.SneakyThrows;
 
-public class Main extends javax.swing.JFrame {
+public class UserMain extends javax.swing.JFrame {
 
     private UserDaoInter userDao = Context.instanceUserDao();
+    private CountryDaoInter countryDao = Context.instanceCountryDao();
     private SimpleDateFormat sdf = new SimpleDateFormat("dd-mm-yyyy");
     User loggedUser;
-    
-    public Main() {
+
+    public UserMain() {
         initComponents();
         loggedUser = userDao.getById(1);
+        fillWindowComponents();
         fillUserComponents();
     }
-    
-    private void fillUserComponents(){
+
+    private void fillWindowComponents() {
+        List<Country> countries = countryDao.getAllCountry();
+        List<Country> nationalities = countryDao.getAllCountry();
+
+        for (Country item : countries) {
+            cbCountry.addItem(item);
+        }
+        
+        for (Country item : nationalities) {
+            cbNationality.addItem(item);
+        }
+    }
+
+    private void fillUserComponents() {
         txtName.setText(loggedUser.getName());
         txtSurname.setText(loggedUser.getSurname());
         txtAreaProfile.setText(loggedUser.getProfileDesc());
         txtAddress.setText(loggedUser.getAddress());
         txtPhone.setText(loggedUser.getPhone());
         txtEmail.setText(loggedUser.getEmail());
-        
+
         Date dt = loggedUser.getBirthDate();
-        
         String dtStr = sdf.format(dt);
         txtBirthdate.setText(dtStr);
+
+        cbCountry.setSelectedItem(loggedUser.getBirthPlace());
+        cbNationality.setSelectedItem(loggedUser.getNationality());
     }
 
     @SuppressWarnings("unchecked")
@@ -195,10 +215,6 @@ public class Main extends javax.swing.JFrame {
 
         lblNationality1.setText("Nationality");
 
-        cbCountry.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Select", "Azerbaijan", "America", " " }));
-
-        cbNationality.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Select", "Azerbaijani", "American" }));
-
         javax.swing.GroupLayout pnlDetailsLayout = new javax.swing.GroupLayout(pnlDetails);
         pnlDetails.setLayout(pnlDetailsLayout);
         pnlDetailsLayout.setHorizontalGroup(
@@ -322,7 +338,6 @@ public class Main extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtSurnameActionPerformed
 
-    
     @SneakyThrows
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
         String name = txtName.getText();
@@ -332,7 +347,9 @@ public class Main extends javax.swing.JFrame {
         String phone = txtPhone.getText();
         String email = txtEmail.getText();
         String birthDate = txtBirthdate.getText();
-        
+        Country birthPlace = (Country) cbCountry.getSelectedItem();
+        Country nationality = (Country) cbNationality.getSelectedItem();
+
         Date bd = new Date(sdf.parse(birthDate).getTime());
 
         loggedUser.setName(name);
@@ -342,8 +359,9 @@ public class Main extends javax.swing.JFrame {
         loggedUser.setPhone(phone);
         loggedUser.setEmail(email);
         loggedUser.setBirthDate(bd);
-        
-        
+        loggedUser.setBirthPlace(birthPlace);
+        loggedUser.setNationality(nationality);
+
         userDao.updateUser(loggedUser);
     }//GEN-LAST:event_btnSaveActionPerformed
 
@@ -380,28 +398,29 @@ public class Main extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Main.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(UserMain.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Main.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(UserMain.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Main.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(UserMain.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Main.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(UserMain.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Main().setVisible(true);
+                new UserMain().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnSave;
-    private javax.swing.JComboBox<String> cbCountry;
-    private javax.swing.JComboBox<String> cbNationality;
+    private javax.swing.JComboBox<Country> cbCountry;
+    private javax.swing.JComboBox<Country> cbNationality;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblAddress;

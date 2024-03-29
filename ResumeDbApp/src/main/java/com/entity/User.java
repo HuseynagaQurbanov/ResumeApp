@@ -6,6 +6,7 @@ import lombok.Data;
 
 @Data
 public class User {
+
     private int id;
     private String name;
     private String surname;
@@ -14,18 +15,19 @@ public class User {
     private String profileDesc;
     private String address;
     private Date birthDate;
-    private Country nationality;
     private Country birthPlace;
+    private Country nationality;
+
     private List<UserSkill> skills;
 
     public User() {
     }
-    
+
     public User(int id) {
         this.id = id;
     }
 
-    public User(int id, String name, String surname, String email, String phone, String profileDesc, String address, Date birthDate, Country nationality, Country birthPlace) {
+    public User(int id, String name, String surname, String email, String phone, String profileDesc, String address, Date birthDate, Country birthPlace, Country nationality) {
         this.id = id;
         this.name = name;
         this.surname = surname;
@@ -34,7 +36,8 @@ public class User {
         this.profileDesc = profileDesc;
         this.address = address;
         this.birthDate = birthDate;
-        this.nationality = nationality;
         this.birthPlace = birthPlace;
+
+        this.nationality = nationality;
     }
 }
