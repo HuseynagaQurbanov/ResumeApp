@@ -37,6 +37,7 @@ public class DetailsPanel extends javax.swing.JPanel {
     }
     
     public void fillUserComponents() {
+        fillWindowComponents();
         User loggedUser = Config.loggedUser;
         txtAddress.setText(loggedUser.getAddress());
         txtPhone.setText(loggedUser.getPhone());
@@ -74,7 +75,7 @@ public class DetailsPanel extends javax.swing.JPanel {
      */
     public DetailsPanel() {
         initComponents();
-        fillWindowComponents();
+        
     }
 
     /**
