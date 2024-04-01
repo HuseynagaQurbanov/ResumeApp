@@ -110,7 +110,7 @@ public class UserMain extends javax.swing.JFrame {
                 .addGap(19, 19, 19)
                 .addComponent(userInfo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
-            .addComponent(tpUserInfo)
+            .addComponent(tpUserInfo, javax.swing.GroupLayout.DEFAULT_SIZE, 704, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -120,7 +120,7 @@ public class UserMain extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(separator, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(tpUserInfo))
+                .addComponent(tpUserInfo, javax.swing.GroupLayout.DEFAULT_SIZE, 287, Short.MAX_VALUE))
         );
 
         pack();

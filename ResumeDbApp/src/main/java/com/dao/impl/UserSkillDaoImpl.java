@@ -51,5 +51,4 @@ public class UserSkillDaoImpl extends AbstractDao implements UserSkillDaoInter {
         }
         return res;
     }
-
 }

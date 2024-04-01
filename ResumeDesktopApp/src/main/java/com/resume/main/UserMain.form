@@ -29,7 +29,7 @@
               <Component id="userInfo" max="32767" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
-          <Component id="tpUserInfo" alignment="0" max="32767" attributes="0"/>
+          <Component id="tpUserInfo" alignment="0" pref="704" max="32767" attributes="0"/>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
@@ -40,7 +40,7 @@
               <EmptySpace max="-2" attributes="0"/>
               <Component id="separator" min="-2" pref="10" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="tpUserInfo" max="32767" attributes="0"/>
+              <Component id="tpUserInfo" pref="287" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
