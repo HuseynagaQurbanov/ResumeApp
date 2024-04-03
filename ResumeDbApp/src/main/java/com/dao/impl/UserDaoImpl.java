@@ -1,9 +1,7 @@
 package com.dao.impl;
 
 import com.entity.Country;
-import com.entity.Skill;
 import com.entity.User;
-import com.entity.UserSkill;
 import com.dao.inter.AbstractDao;
 import com.dao.inter.UserDaoInter;
 import java.sql.Connection;
