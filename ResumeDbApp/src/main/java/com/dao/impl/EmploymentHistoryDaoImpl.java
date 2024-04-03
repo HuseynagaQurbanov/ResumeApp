@@ -55,8 +55,23 @@ public class EmploymentHistoryDaoImpl extends AbstractDao implements EmploymentH
             stmt.execute("select * from employment_history where id=" + id);
             ResultSet rs = stmt.getResultSet();
 
+            res = getEmploymentHistory(rs);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        return res;
+    }
+    
+    public List<EmploymentHistory> getUserAllEmploymentHistoryByUserId(int userId) {
+        List<EmploymentHistory> res = new ArrayList();
+
+        try (Connection c = connect()) {
+            Statement stmt = c.createStatement();
+            stmt.execute("select * from employment_history where user_id = " + userId);
+            ResultSet rs = stmt.getResultSet();
+
             while (rs.next()) {
-                res = getEmploymentHistory(rs);
+                res.add(getEmploymentHistory(rs));
             }
         } catch (Exception ex) {
             ex.printStackTrace();

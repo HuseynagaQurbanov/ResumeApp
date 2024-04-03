@@ -1,20 +1,48 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
- */
 package com.resume.panel;
 
-/**
- *
- * @author SOFT
- */
+import com.dao.inter.EmploymentHistoryDaoInter;
+import com.entity.EmploymentHistory;
+import com.entity.UserSkill;
+import com.main.Context;
+import com.resume.config.Config;
+import java.util.List;
+import java.util.Vector;
+import javax.swing.table.DefaultTableModel;
+
 public class EmploymentHistoryPanel extends javax.swing.JPanel {
 
-    /**
-     * Creates new form EmploymentHistoryPanel
-     */
+    private EmploymentHistoryDaoInter employmentHistoryDao = Context.instanceEmploymentHistoryDao();
+    
+    private List<EmploymentHistory> userEmploymentHistories;
+    
+    
     public EmploymentHistoryPanel() {
         initComponents();
+    }
+    
+    private void fillTable() {
+        userEmploymentHistories = employmentHistoryDao.getAllSkillByUserId(Config.loggedUser.getId());
+
+        Vector<Vector> rows = new Vector();
+
+        for (UserSkill item : userSkills) {
+            Vector row = new Vector();
+            row.add(item.getSkill());
+            row.add(item.getPower());
+            rows.add(row);
+        }
+
+        Vector columns = new Vector();
+        columns.add("Skill");
+        columns.add("Power");
+
+        DefaultTableModel model = new DefaultTableModel(rows, columns);
+
+        tblSkills.setModel(model);
+    }
+    
+    public void fillUserComponents(){
+        
     }
 
     /**
@@ -136,8 +164,8 @@ public class EmploymentHistoryPanel extends javax.swing.JPanel {
                     .addComponent(btnDelete)
                     .addComponent(btnChange))
                 .addGap(33, 33, 33)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(29, Short.MAX_VALUE))
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(30, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 

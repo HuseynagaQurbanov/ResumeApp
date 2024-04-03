@@ -38,7 +38,7 @@ public class UserMain extends javax.swing.JFrame {
         profilePanel = new com.resume.panel.ProfilePanel();
         detailsPanel = new com.resume.panel.DetailsPanel();
         skillsPanel = new com.resume.panel.SkillsPanel();
-        employmentHistoryPanel1 = new com.resume.panel.EmploymentHistoryPanel();
+        employmentHistoryPanel = new com.resume.panel.EmploymentHistoryPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -102,19 +102,7 @@ public class UserMain extends javax.swing.JFrame {
         tpUserInfo.addTab("Profile", profilePanel);
         tpUserInfo.addTab("Details", detailsPanel);
         tpUserInfo.addTab("Skills", skillsPanel);
-
-        javax.swing.GroupLayout employmentHistoryPanel1Layout = new javax.swing.GroupLayout(employmentHistoryPanel1);
-        employmentHistoryPanel1.setLayout(employmentHistoryPanel1Layout);
-        employmentHistoryPanel1Layout.setHorizontalGroup(
-            employmentHistoryPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 736, Short.MAX_VALUE)
-        );
-        employmentHistoryPanel1Layout.setVerticalGroup(
-            employmentHistoryPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 389, Short.MAX_VALUE)
-        );
-
-        tpUserInfo.addTab("Employment History", employmentHistoryPanel1);
+        tpUserInfo.addTab("Employment History", employmentHistoryPanel);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -203,7 +191,7 @@ public class UserMain extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnSave;
     private com.resume.panel.DetailsPanel detailsPanel;
-    private com.resume.panel.EmploymentHistoryPanel employmentHistoryPanel1;
+    private com.resume.panel.EmploymentHistoryPanel employmentHistoryPanel;
     private javax.swing.JLabel lblName;
     private javax.swing.JLabel lblSurname;
     private com.resume.panel.ProfilePanel profilePanel;

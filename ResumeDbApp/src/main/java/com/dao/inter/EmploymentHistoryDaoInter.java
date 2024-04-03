@@ -14,4 +14,6 @@ public interface EmploymentHistoryDaoInter {
     boolean removeEmploymentHistory(int id);
     
     public boolean addEmploymentHistory(EmploymentHistory eh);
+    
+        public List<EmploymentHistory> getUserAllEmploymentHistoryByUserId(int userId);
 }
