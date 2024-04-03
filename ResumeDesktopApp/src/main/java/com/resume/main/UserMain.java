@@ -16,6 +16,7 @@ public class UserMain extends javax.swing.JFrame {
         profilePanel.fillUserComponents();
         detailsPanel.fillUserComponents();
         skillsPanel.fillUserComponents();
+        employmentHistoryPanel.fillUserComponents();
     }
     
     private void fillUserFullname(){

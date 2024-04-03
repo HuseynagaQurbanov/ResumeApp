@@ -2,47 +2,57 @@ package com.resume.panel;
 
 import com.dao.inter.EmploymentHistoryDaoInter;
 import com.entity.EmploymentHistory;
+import com.entity.Skill;
 import com.entity.UserSkill;
 import com.main.Context;
 import com.resume.config.Config;
+import static com.resume.config.Config.loggedUser;
+import java.sql.Date;
+import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Vector;
 import javax.swing.table.DefaultTableModel;
+import lombok.SneakyThrows;
 
 public class EmploymentHistoryPanel extends javax.swing.JPanel {
 
     private EmploymentHistoryDaoInter employmentHistoryDao = Context.instanceEmploymentHistoryDao();
-    
+
     private List<EmploymentHistory> userEmploymentHistories;
-    
-    
+
+    private SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+
     public EmploymentHistoryPanel() {
         initComponents();
     }
-    
+
     private void fillTable() {
-        userEmploymentHistories = employmentHistoryDao.getAllSkillByUserId(Config.loggedUser.getId());
+        userEmploymentHistories = employmentHistoryDao.getAllEmploymentHistoryByUserId(Config.loggedUser.getId());
 
         Vector<Vector> rows = new Vector();
 
-        for (UserSkill item : userSkills) {
+        for (EmploymentHistory item : userEmploymentHistories) {
             Vector row = new Vector();
-            row.add(item.getSkill());
-            row.add(item.getPower());
+            row.add(item.getHeader());
+            row.add(item.getBeginDate());
+            row.add(item.getEndDate());
+            row.add(item.getJobDescription());
             rows.add(row);
         }
 
         Vector columns = new Vector();
-        columns.add("Skill");
-        columns.add("Power");
+        columns.add("Header");
+        columns.add("Begin date");
+        columns.add("End date");
+        columns.add("Job description");
 
         DefaultTableModel model = new DefaultTableModel(rows, columns);
 
-        tblSkills.setModel(model);
+        tblEmploymentHistory.setModel(model);
     }
-    
-    public void fillUserComponents(){
-        
+
+    public void fillUserComponents() {
+        fillTable();
     }
 
     /**
@@ -65,7 +75,7 @@ public class EmploymentHistoryPanel extends javax.swing.JPanel {
         jScrollPane2 = new javax.swing.JScrollPane();
         txtAreaJobDescription = new javax.swing.JTextArea();
         jScrollPane3 = new javax.swing.JScrollPane();
-        tblJobDescription = new javax.swing.JTable();
+        tblEmploymentHistory = new javax.swing.JTable();
         btnAdd = new javax.swing.JButton();
         btnDelete = new javax.swing.JButton();
         btnChange = new javax.swing.JButton();
@@ -86,7 +96,7 @@ public class EmploymentHistoryPanel extends javax.swing.JPanel {
         txtAreaJobDescription.setRows(5);
         jScrollPane2.setViewportView(txtAreaJobDescription);
 
-        tblJobDescription.setModel(new javax.swing.table.DefaultTableModel(
+        tblEmploymentHistory.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {},
                 {},
@@ -97,13 +107,28 @@ public class EmploymentHistoryPanel extends javax.swing.JPanel {
 
             }
         ));
-        jScrollPane3.setViewportView(tblJobDescription);
+        jScrollPane3.setViewportView(tblEmploymentHistory);
 
         btnAdd.setText("Add");
+        btnAdd.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAddActionPerformed(evt);
+            }
+        });
 
         btnDelete.setText("Delete");
+        btnDelete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDeleteActionPerformed(evt);
+            }
+        });
 
         btnChange.setText("Change");
+        btnChange.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnChangeActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -169,6 +194,59 @@ public class EmploymentHistoryPanel extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
+        int index = tblEmploymentHistory.getSelectedRow();
+        EmploymentHistory employmentHistory = userEmploymentHistories.get(index);
+        employmentHistoryDao.removeEmploymentHistory(employmentHistory.getId());
+        fillTable();
+    }//GEN-LAST:event_btnDeleteActionPerformed
+
+    @SneakyThrows
+    private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
+        String header = txtAreaHeader.getText();
+        String startDate = txtStartDate.getText();
+        String endDate = txtEndDate.getText();
+        String jobDescription = txtAreaJobDescription.getText();
+
+        Date sD = new Date(sdf.parse(startDate).getTime());
+        Date eD = new Date(sdf.parse(endDate).getTime());
+        
+        EmploymentHistory newEmploymentHistory = new EmploymentHistory();
+
+        newEmploymentHistory.setId(null);
+        newEmploymentHistory.setHeader(header);
+        newEmploymentHistory.setBeginDate(sD);
+        newEmploymentHistory.setEndDate(eD);
+        newEmploymentHistory.setJobDescription(jobDescription);
+        newEmploymentHistory.setUser(loggedUser);
+
+        employmentHistoryDao.addEmploymentHistory(newEmploymentHistory);
+        
+        fillTable();
+    }//GEN-LAST:event_btnAddActionPerformed
+
+    @SneakyThrows
+    private void btnChangeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChangeActionPerformed
+        EmploymentHistory selectedEmploymentHistory = userEmploymentHistories.get(tblEmploymentHistory.getSelectedRow());
+        String header = txtAreaHeader.getText();
+        String startDate = txtStartDate.getText();
+        String endDate = txtEndDate.getText();
+        String jobDescription = txtAreaJobDescription.getText();
+        Date sD = new Date(sdf.parse(startDate).getTime());
+        Date eD = new Date(sdf.parse(endDate).getTime());
+
+        selectedEmploymentHistory.setId(selectedEmploymentHistory.getId());
+        selectedEmploymentHistory.setHeader(header);
+        selectedEmploymentHistory.setBeginDate(sD);
+        selectedEmploymentHistory.setEndDate(eD);
+        selectedEmploymentHistory.setJobDescription(jobDescription);
+        selectedEmploymentHistory.setUser(loggedUser);
+
+        employmentHistoryDao.updateEmploymentHistory(selectedEmploymentHistory);
+        
+        fillTable();
+    }//GEN-LAST:event_btnChangeActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAdd;
@@ -181,7 +259,7 @@ public class EmploymentHistoryPanel extends javax.swing.JPanel {
     private javax.swing.JLabel lblHeader;
     private javax.swing.JLabel lblJobDescription;
     private javax.swing.JLabel lblStartDate;
-    private javax.swing.JTable tblJobDescription;
+    private javax.swing.JTable tblEmploymentHistory;
     private javax.swing.JTextArea txtAreaHeader;
     private javax.swing.JTextArea txtAreaJobDescription;
     private javax.swing.JTextField txtEndDate;
