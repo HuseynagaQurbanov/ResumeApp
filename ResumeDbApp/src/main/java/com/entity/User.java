@@ -17,6 +17,7 @@ public class User {
     private Date birthDate;
     private Country birthPlace;
     private Country nationality;
+    private String password;
 
     private List<UserSkill> skills;
 
@@ -27,7 +28,7 @@ public class User {
         this.id = id;
     }
 
-    public User(int id, String name, String surname, String email, String phone, String profileDesc, String address, Date birthDate, Country birthPlace, Country nationality) {
+    public User(int id, String name, String surname, String email, String phone, String profileDesc, String address, Date birthDate, Country birthPlace, Country nationality, String password) {
         this.id = id;
         this.name = name;
         this.surname = surname;
@@ -37,7 +38,7 @@ public class User {
         this.address = address;
         this.birthDate = birthDate;
         this.birthPlace = birthPlace;
-
         this.nationality = nationality;
+        this.password = password;
     }
 }

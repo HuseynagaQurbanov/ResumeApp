@@ -4,6 +4,8 @@ import com.entity.Country;
 import com.entity.User;
 import com.dao.inter.AbstractDao;
 import com.dao.inter.UserDaoInter;
+import lombok.SneakyThrows;
+
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
@@ -28,11 +30,12 @@ public class UserDaoImpl extends AbstractDao implements UserDaoInter {
         int nationalityId = rs.getInt("nationality_id");
         String birthPlaceStr = rs.getString("birthplace");
         String nationalityStr = rs.getString("nationality");
+        String password = rs.getString("password");
 
         Country nationality = new Country(birthPlaceId, null, nationalityStr);
         Country birthPlace = new Country(nationalityId, birthPlaceStr, null);
 
-        return new User(id, name, surname, email, phone, profileDesc, address, birthdate, birthPlace, nationality);
+        return new User(id, name, surname, email, phone, profileDesc, address, birthdate, birthPlace, nationality, password);
     }
 
     @Override
@@ -160,6 +163,24 @@ public class UserDaoImpl extends AbstractDao implements UserDaoInter {
             ex.printStackTrace();
             return false;
         }
+    }
+
+    @SneakyThrows
+    @Override
+    public User findUserByEmailAndPassword(String email, String password){
+        User result = null;
+
+        Connection c = connect();
+        PreparedStatement stmt = c.prepareStatement("select * from user where email=? and password=?");
+        stmt.setString(1, email);
+        stmt.setString(2,password);
+
+        ResultSet rs = stmt.executeQuery();
+        while(rs.next()){
+            result = getUser(rs);
+        }
+
+        return result;
     }
 
 }
