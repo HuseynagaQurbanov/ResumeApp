@@ -10,6 +10,14 @@
     <title>User Page</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css"
           integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+    <script>
+        function setIdForDelete(id){
+            var elem = document.getElementById("idForDelete");
+            elem.value = id;
+        }
+    </script>
+
 </head>
 <body>
 <%
@@ -71,11 +79,12 @@
                                 <input type="hidden" name="id" value="<%=u.getId()%>">
                                 <i class="fa-solid fa-pen"></i>
                             </button>
-                            <button class="btn btn-danger" name="action" value="delete" type="submit">
-                                <input type="hidden" name="id" value="<%=u.getId()%>">
+                            <button class="btn btn-danger" data-toggle="modal" data-target="#exampleModal" type="button" onclick="setIdForDelete(<%=u.getId()%>)">
                                 <i class="fa-solid fa-trash"></i>
                             </button>
                         </form>
+
+
                     </td>
                 </tr>
                 <%}%>
@@ -83,10 +92,47 @@
             </table>
         </div>
     </div>
-
 </div>
 
 
+
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Delete</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                Are you sure?
+            </div>
+            <div class="modal-footer">
+                <form action="user-detail" method="GET">
+                    <input type="hidden" id="idForDelete" name="id" value="">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" name="action" value="delete" class="btn btn-danger">Delete</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
 <script src="https://kit.fontawesome.com/08ad95816c.js" crossorigin="anonymous"></script>
 </body>
 </html>
