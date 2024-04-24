@@ -32,22 +32,50 @@ public class UserDaoImpl extends AbstractDao implements UserDaoInter {
         Country nationality = new Country(birthPlaceId, null, nationalityStr);
         Country birthPlace = new Country(nationalityId, birthPlaceStr, null);
 
-        return new User(id, name, surname, email, phone, profileDesc, address, birthdate, nationality, birthPlace);
+        return new User(id, name, surname, email, phone, profileDesc, address, birthdate, birthPlace, nationality);
     }
 
     @Override
-    public List<User> getAll() {
+    public List<User> getAll(String name, String surname, Integer nationalityId) {
         List<User> res = new ArrayList<>();
 
         try (Connection c = connect()) {
-            Statement stmt = c.createStatement();
-            stmt.execute("select "
+
+
+            String sqlQuery = "select "
                     + "*, "
                     + "n.nationality as nationality, "
                     + "c.name as birthplace "
                     + "from user u "
                     + "left join country n on u.nationality_id = n.id "
-                    + "left join country c on u.birthplace_id = c.id");
+                    + "left join country c on u.birthplace_id = c.id where 1=1";
+
+            if (name != null && !name.trim().isEmpty()){
+                sqlQuery += " and u.name=? ";
+            }
+            if (surname != null && !surname.trim().isEmpty()){
+                sqlQuery += " and u.surname=? ";
+            }
+            if (nationalityId != null){
+                sqlQuery += " and u.nationality_id=? ";
+            }
+
+            PreparedStatement stmt = c.prepareStatement(sqlQuery);
+
+            int i=1;
+            if (name!=null && !name.trim().isEmpty()){
+                stmt.setString(i,name);
+                i++;
+            }
+            if (surname!=null && !surname.trim().isEmpty()){
+                stmt.setString(i,surname);
+                i++;
+            }
+            if (nationalityId!=null){
+                stmt.setInt(i,nationalityId);
+            }
+
+            stmt.execute();
             ResultSet rs = stmt.getResultSet();
 
             while (rs.next()) {

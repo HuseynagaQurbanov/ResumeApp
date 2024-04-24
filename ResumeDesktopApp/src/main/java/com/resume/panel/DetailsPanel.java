@@ -21,7 +21,7 @@ import lombok.SneakyThrows;
 public class DetailsPanel extends javax.swing.JPanel {
 
     private CountryDaoInter countryDao = Context.instanceCountryDao();
-    private SimpleDateFormat sdf = new SimpleDateFormat("dd-mm-yyyy");
+    private SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
 
     private void fillWindowComponents() {
         List<Country> countries = countryDao.getAllCountry();
