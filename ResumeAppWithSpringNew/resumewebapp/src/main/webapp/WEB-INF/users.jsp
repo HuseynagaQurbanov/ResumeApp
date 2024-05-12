@@ -28,10 +28,13 @@
                 <div class="form-group">
                     <label for="name">Name</label>
                     <f:input type="text" class="form-control" id="exampleInputEmail1" path="name"></f:input>
+                    <f:errors path ="name"></f:errors>
                 </div>
                 <div class="form-group">
                     <label for="surname">Surname</label>
                     <f:input type="text" class="form-control" id="exampleInputPassword1" path="surname"></f:input>
+                    <f:errors path = "surname"></f:errors>
+
                 </div>
                 <f:button type="submit" class="btn btn-primary">Search</f:button>
             </f:form>

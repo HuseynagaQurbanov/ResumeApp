@@ -1,7 +1,15 @@
 package com.company.form;
 
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
+
 public class UserForm {
+
+    @NotEmpty(message = "Bos ola bilmez")
+    @Size(min = 3, message = "3 xarakterden asagi ola bilmez")
     private String name;
+
+    @NotEmpty(message = "Bos ola bilmez")
     private String surname;
     private Integer nationalityId;
 
