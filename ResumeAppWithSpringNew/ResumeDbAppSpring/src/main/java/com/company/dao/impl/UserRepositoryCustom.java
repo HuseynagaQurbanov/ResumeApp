@@ -1,10 +1,10 @@
-package com.company.dao.inter;
+package com.company.dao.impl;
 
 import com.company.entity.User;
-import com.company.entity.UserSkill;
+
 import java.util.List;
 
-public interface UserDaoInter {
+public interface UserRepositoryCustom {
     
     public boolean addUser(User u);
 

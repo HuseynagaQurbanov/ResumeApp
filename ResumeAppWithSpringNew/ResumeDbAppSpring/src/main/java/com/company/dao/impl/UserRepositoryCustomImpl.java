@@ -2,7 +2,6 @@ package com.company.dao.impl;
 
 import at.favre.lib.crypto.bcrypt.BCrypt;
 import com.company.entity.User;
-import com.company.dao.inter.UserDaoInter;
 import org.springframework.stereotype.Repository;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -15,7 +14,7 @@ import java.util.List;
 
 
 @Repository
-public class UserDaoImpl implements UserDaoInter {
+public class UserRepositoryCustomImpl implements UserRepositoryCustom {
 
     @PersistenceContext
     EntityManager em;

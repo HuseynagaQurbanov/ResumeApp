@@ -1,16 +1,14 @@
 package com.company;
 
-import com.company.dao.impl.UserDaoImpl;
-import com.company.dao.inter.UserDaoInter;
-import com.company.dao.inter.UserRepository;
+import com.company.dao.impl.UserRepositoryCustom;
+import com.company.dao.impl.UserRepositoryCustomImpl;
 import com.company.entity.User;
+import com.company.service.inter.UserServiceInter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
-
-import java.util.List;
 
 @SpringBootApplication
 public class ResumeDbAppSpringApplication {
@@ -38,15 +36,16 @@ public class ResumeDbAppSpringApplication {
 //	}
 
 	@Autowired
-	private UserDaoImpl userRepository;
+	private UserServiceInter userRepository;
 
 	@Bean
 	public CommandLineRunner run(){
 		CommandLineRunner clr = new CommandLineRunner() {
 			@Override
 			public void run(String... args) throws Exception {
-				User list = userRepository.getById(1);
-				System.out.println(list);
+//				User list = userRepository.getById(1);
+//				list.setPassword("huseyn58");
+//				userRepository.updateUser(list);
 			}
 		};
 

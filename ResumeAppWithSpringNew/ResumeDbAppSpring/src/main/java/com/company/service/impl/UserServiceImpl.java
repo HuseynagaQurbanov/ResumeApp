@@ -1,10 +1,9 @@
 package com.company.service.impl;
 
-import com.company.dao.impl.UserDaoImpl;
+import com.company.dao.impl.UserRepositoryCustomImpl;
 import com.company.entity.User;
 import com.company.service.inter.UserServiceInter;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -15,7 +14,7 @@ import java.util.List;
 public class UserServiceImpl implements UserServiceInter {
 
     @Autowired
-    UserDaoImpl userDao;
+    UserRepositoryCustomImpl userDao;
 
     @Override
     public List<User> getAll(String name, String surname, Integer nationalityId) {
